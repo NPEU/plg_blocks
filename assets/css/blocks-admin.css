@@ -1,0 +1,195 @@
+/*
+    Block CSS
+*/
+
+#fieldset-blocks [data-base-name="rows"] .hidden {
+    display: none !important;
+}
+
+
+
+
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details {
+
+    padding: 0;
+    border: var(--form-select-border);
+    background-color: #fff;
+
+    margin: 0;
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary {
+    list-style: none;
+    padding: .5rem 3rem .5rem 1rem;
+    color: var(--body-color);
+
+    position: relative;
+
+
+    border-radius: 4px;
+    /*background: var(--form-select-background);
+    background-image: url(/media/templates/administrator/atum/images/select-bg.svg?v=5ebba0);*/
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio {
+    margin: 0;
+    border-top: var(--form-select-border);
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check {
+    padding: 0;
+}
+
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label {
+    color: rgba(0,0,0,0);
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem 1rem;
+
+    position: relative;
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label:hover {
+    background-color: var(--template-bg-light);
+
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: .8rem 1rem;
+    background-clip: content-box !important;
+
+    --tc: var(--template-bg-dark-30);
+    --tw: transparent;
+}
+
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="100"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="100"] + label::before {
+    background: linear-gradient(to right,
+        var(--tc) 0%, var(--tc) 100%
+    );
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="50-50"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="50-50"] + label::before {
+    background: linear-gradient(
+        to right,
+        var(--tc) 0%, var(--tc) 48%,
+        var(--tw) 48%, var(--tw) 52%,
+        var(--tc) 52%, var(--tc) 100%
+    );
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="33-66"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="33-66"] + label::before {
+    background: linear-gradient(
+        to right,
+        var(--tc) 0%, var(--tc) 31%,
+        var(--tw) 31%, var(--tw) 35%,
+        var(--tc) 35%, var(--tc) 100%
+    );
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="66-33"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="66-33"] + label::before {
+    background: linear-gradient(
+        to right,
+        var(--tc) 0%, var(--tc) 64%,
+        var(--tw) 64%, var(--tw) 68%,
+        var(--tc) 68%, var(--tc) 100%
+    );
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="33-33-33"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="33-33-33"] + label::before {
+    background: linear-gradient(
+        to right,
+        var(--tc) 0%, var(--tc) 31%,
+        var(--tw) 31%, var(--tw) 35%,
+        var(--tc) 35%, var(--tc) 64%,
+        var(--tw) 64%, var(--tw) 68%,
+        var(--tc) 68%, var(--tc) 100%
+    );
+}
+
+
+
+#fieldset-blocks .subform-repeatable-wrapper.subform-layout {
+    container: grid-wrap / inline-size;
+}
+
+#fieldset-blocks [data-base-name="rows"] {
+    display: grid;
+    gap: 0 var(--gutter-x);
+}
+
+@container grid-wrap (width > 90ch) {
+
+   [data-base-name="rows"] {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+
+   [data-base-name="rows"] .control-group.btn-toolbar,
+   [data-base-name="rows"] .control-group.n-blocks {
+        grid-column: auto / span 6;
+    }
+
+
+   [data-base-name="rows"] .control-group.block-cell {
+        /*flex-wrap: wrap;
+        flex: 1 1 calc(( 45rem - 100%) * 999);
+        display: flex;*/
+        border: var(--form-select-border);
+        padding: 0.5em;
+        background-color: var(--template-bg-light);
+
+        grid-column: auto / span 6;
+
+        margin: 0 0 1rem;
+        position: relative;
+    }
+
+   [data-base-name="rows"]:has([value="50-50"]:checked) .control-group.block-cell {
+        grid-column: auto / span 3;
+    }
+
+   [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(3) {
+        grid-column: auto / span 2;
+    }
+
+   [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(2) {
+        grid-column: auto / span 4;
+    }
+
+   [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(3) {
+        grid-column: auto / span 4;
+    }
+
+   [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(2) {
+        grid-column: auto / span 2;
+    }
+
+   [data-base-name="rows"]:has([value="33-33-33"]:checked) .control-group.block-cell {
+        grid-column: auto / span 2;
+    }
+
+}
+
+/*
+#fieldset-blocks [data-base-name="rows"] .control-group.block-cell .controls select {
+    margin-bottom: 0.5em;
+}
+*/

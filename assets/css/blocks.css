@@ -1,0 +1,53 @@
+/*
+    Blocks CSS
+*/
+
+
+.com-blocks {
+    container: grid-wrap / inline-size;
+    --gutter-x: 2.4rem;
+}
+
+.com-blocks > .com-blocks__row {
+    display: grid;
+    gap: 0 var(--gutter-x);
+}
+
+@container grid-wrap (width > 90ch) {
+
+    .com-blocks > .com-blocks__row {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+
+    .com-blocks .com-blocks__block {
+        background: #eee;
+        padding: 2.4rem;
+        border-radius: .6rem;
+    }
+
+    .com-blocks > .com-blocks__row--50-50 > .com-blocks__block {
+        grid-column: auto / span 3;
+    }
+
+   .com-blocks > .ccom-blocks__row--33-66 > .com-blocks__block-1 {
+        grid-column: auto / span 2;
+    }
+
+    .com-blocks > .com-blocks__row--33-66 > .com-blocks__block-2 {
+        grid-column: auto / span 4;
+    }
+
+    .com-blocks > .com-blocks__row--66-33 > .com-blocks__block-1 {
+        grid-column: auto / span 4;
+    }
+
+    .com-blocks > .com-blocks__row--66-33 > .com-blocks__block-2 {
+        grid-column: auto / span 2;
+    }
+
+    .com-blocks > .com-blocks__row--33-33-33 > .com-blocks__block {
+        grid-column: auto / span 2;
+    }
+
+}
