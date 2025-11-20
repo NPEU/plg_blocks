@@ -135,6 +135,12 @@
     gap: 0 var(--gutter-x);
 }
 
+[data-base-name="rows"] .control-group.block-cell {
+    border: var(--form-select-border);
+    padding: 0.5em;
+    background-color: var(--template-bg-light)
+}
+
 @container grid-wrap (width > 90ch) {
 
    [data-base-name="rows"] {
@@ -149,13 +155,6 @@
 
 
    [data-base-name="rows"] .control-group.block-cell {
-        /*flex-wrap: wrap;
-        flex: 1 1 calc(( 45rem - 100%) * 999);
-        display: flex;*/
-        border: var(--form-select-border);
-        padding: 0.5em;
-        background-color: var(--template-bg-light);
-
         grid-column: auto / span 6;
 
         margin: 0 0 1rem;
