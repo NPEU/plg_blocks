@@ -10,16 +10,21 @@
 
 
 
-#fieldset-blocks [data-base-name="rows"] .n-blocks details {
+#fieldset-blocks [data-base-name="rows"] .n-blocks details,
+details.iconselect-field {
 
     padding: 0;
     border: var(--form-select-border);
     background-color: #fff;
 
     margin: 0;
+
+    overflow: hidden;
 }
 
-#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary {
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary,
+details.iconselect-field > summary {
     list-style: none;
     padding: .5rem 3rem .5rem 1rem;
     color: var(--body-color);
@@ -28,21 +33,46 @@
 
 
     border-radius: 4px;
-    /*background: var(--form-select-background);
-    background-image: url(/media/templates/administrator/atum/images/select-bg.svg?v=5ebba0);*/
+    background: var(--form-select-background);
+    background-image: url(/media/templates/administrator/atum/images/select-bg.svg?v=5ebba0);
 }
 
-#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio {
-    margin: 0;
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio,
+details.iconselect-field > summary + .radio {
     border-top: var(--form-select-border);
 }
+
+
+
+details.iconselect-field > summary + .radio {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    gap: 1px;
+    background-color: var(--template-bg-dark-20);
+}
+
+details.iconselect-field > summary + .radio > .form-check {
+    flex: 0 0 auto;
+    padding: 0;
+}
+
+details.iconselect-field > summary + .radio > .form-check:first-child {
+    flex-basis: 100%;
+}
+
+
+
 
 #fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check {
     padding: 0;
 }
 
 
-#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label {
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label,
+details.iconselect-field > summary + .radio > .form-check label {
     color: rgba(0,0,0,0);
     cursor: pointer;
     width: 100%;
@@ -51,7 +81,14 @@
     position: relative;
 }
 
-#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label:hover {
+details.iconselect-field > summary + .radio > .form-check label {
+    color: var(--body-color);
+    padding: .3rem;
+    background-color: #fff;
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label:hover,
+details.iconselect-field > summary + .radio > .form-check label:hover {
     background-color: var(--template-bg-light);
 
 }
@@ -138,7 +175,13 @@
 [data-base-name="rows"] .control-group.block-cell {
     border: var(--form-select-border);
     padding: 0.5em;
-    background-color: var(--template-bg-light)
+    background-color: var(--template-bg-light);
+
+    flex-direction: column;
+}
+
+[data-base-name="rows"] .control-group.block-cell .controls {
+    flex: 0;
 }
 
 @container grid-wrap (width > 90ch) {
@@ -151,6 +194,13 @@
    [data-base-name="rows"] .control-group.btn-toolbar,
    [data-base-name="rows"] .control-group.n-blocks {
         grid-column: auto / span 6;
+    }
+
+    [data-base-name="rows"] .control-group.block-expand {
+        grid-column: span 6;
+
+        margin: 0 0 1rem;
+        position: relative;
     }
 
 

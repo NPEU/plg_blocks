@@ -21,11 +21,24 @@ async function getData(url) {
 
 (function () {
 
+    //var self = this;
+
     var murl = '/administrator/index.php?option=com_ajax&format=json&plugin=getModuleById&module_id=';
+
+    var tidy_preview_html = function (html) {
+        if (!html) {
+            return html;
+        }
+        html = html.replace(/src="([^/])/g, 'src="/$1');
+        return html;
+    }
 
     var init = function () {
 
         //console.log(document.getElementById('jform_id').value);
+        if (!document.getElementById('jform_id')) {
+            return;
+        }
         var page_id = document.getElementById('jform_id').value;
 
         if (page_id == 0) {
@@ -45,7 +58,7 @@ async function getData(url) {
         });
 
         const msgListener = event => {
-            console.log(event.data);
+            //console.log(event.data);
             // Avoid cross origins
             if (event.origin !== window.location.origin) return;
             // Check message type
@@ -60,13 +73,15 @@ async function getData(url) {
                 var mid = event.data.id;
                 if (mid > 0) {
                     var url = murl + mid;
-                    console.log(mid);
+                    //console.log(mid);
                     getData(url).then(result => {
                         // do things with the result here, like call functions with them
-                        //console.log(result.data[0].rendered_output);
+                        console.log(result.data[0]);
+                        console.log(result.data[0].rendered_output);
 
                         //preview_container.innerHTML = result.data[0].rendered_output;
-                        window.modal_preview_container.innerHTML = result.data[0].rendered_output;
+
+                        window.modal_preview_container.innerHTML = tidy_preview_html(result.data[0].rendered_output);
                         window.modal_preview_container = null;
                     });
                 }
@@ -94,13 +109,14 @@ async function getData(url) {
 
             //console.log(select);
 
-            var modal_select = block_cell.querySelector('.form-select');
-            var modal_control = modal_select.nextElementSibling;
-            var modal_input  = modal_control.querySelector('input.form-control');
-            var modal_create = block_cell.querySelector('[data-button-action="create"]');
-            var modal_edit   = block_cell.querySelector('[data-button-action="edit"]');
-            var modal_clear  = block_cell.querySelector('[data-button-action="clear"]');
-            var modal_hidden = block_cell.querySelector('input[type="hidden"]');
+            var modal_type_select = block_cell.querySelector('.form-select');
+            var modal_control     = modal_type_select.nextElementSibling;
+            var modal_input       = modal_control.querySelector('input.form-control');
+            var modal_select      = block_cell.querySelector('[data-button-action="select"]');
+            var modal_create      = block_cell.querySelector('[data-button-action="create"]');
+            var modal_edit        = block_cell.querySelector('[data-button-action="edit"]');
+            var modal_clear       = block_cell.querySelector('[data-button-action="clear"]');
+            var modal_hidden      = block_cell.querySelector('input[type="hidden"]');
 
 
             var preview_container = document.createElement("div");
@@ -110,11 +126,12 @@ async function getData(url) {
             modal_input.dataset.placeholderOrginial = modal_input.placeholder;
 
             modal_create.dataset.modalConfigOriginal = modal_create.dataset.modalConfig;
+            modal_select.dataset.modalConfigOriginal = modal_select.dataset.modalConfig;
 
             //console.log(modal_hidden.value);
             if (modal_hidden.value > 0) {
 
-                modal_select.hidden = true;
+                modal_type_select.hidden = true;
 
 
 
@@ -125,13 +142,13 @@ async function getData(url) {
                     //console.log(result.data[0]);
 
                     modal_input.value = result.data[0].title;
-                    preview_container.innerHTML = result.data[0].rendered_output;
+                    preview_container.innerHTML = tidy_preview_html(result.data[0].rendered_output);
                     modal_control.hidden = false;
                 });
 
             } else {modal_control.hidden = false;
                 modal_control.hidden = true;
-                modal_select.hidden = false;
+                modal_type_select.hidden = false;
             }
 
             modal_create.addEventListener("click", (event) => {
@@ -148,17 +165,18 @@ async function getData(url) {
 
             modal_clear.addEventListener("click", (event) => {
                 modal_control.hidden = true;
-                modal_select.hidden = false;
-                modal_select.selectedIndex = 0;
+                modal_type_select.hidden = false;
+                modal_type_select.selectedIndex = 0;
 
                 modal_input.value = "";
                 modal_input.placeholder = modal_input.placeholder = modal_input.dataset.placeholderOrginial;
                 modal_create.dataset.modalConfig = modal_create.dataset.modalConfigOriginal;
+                modal_select.dataset.modalConfig = modal_select.dataset.modalConfigOriginal;
 
                 preview_container.innerHTML = "";
             });
 
-            modal_select.addEventListener("change", (event) => {
+            modal_type_select.addEventListener("change", (event) => {
                 //result.textContent = `You like ${event.target.value}`;
                 console.log('HERE: ' + event.target.value);
 
@@ -167,13 +185,17 @@ async function getData(url) {
                 }  else {
                     //console.log(btn);
                     modal_control.hidden = false;
-                    modal_select.hidden = true;
+                    modal_type_select.hidden = true;
 
-                    var selected_text  = modal_select.options[modal_select.selectedIndex].text;
-                    var selected_value = modal_select.options[modal_select.selectedIndex].value;
+                    var selected_text  = modal_type_select.options[modal_type_select.selectedIndex].text;
+                    var selected_value = modal_type_select.options[modal_type_select.selectedIndex].value;
+
+                    // This may be best determined in a different way:
+                    var selected_modtype = selected_text.replace(' ', '').toLowerCase();
 
                     //console.log(selected_text);
                     //console.log(selected_value);
+                    console.log(selected_modtype);
 
                     modal_input.placeholder = modal_input.placeholder.replace('{TYPE}', selected_text);
 
@@ -181,6 +203,10 @@ async function getData(url) {
 
                     modal_create.dataset.modalConfigOriginal = modal_create.dataset.modalConfig;
                     modal_create.dataset.modalConfig = modal_create.dataset.modalConfig.replace('{EID}', selected_value);
+
+
+                    modal_select.dataset.modalConfigOriginal = modal_select.dataset.modalConfig;
+                    modal_select.dataset.modalConfig = modal_select.dataset.modalConfig.replace('{modtype}', selected_modtype);
 
                     modal_clear.hidden = false;
 
