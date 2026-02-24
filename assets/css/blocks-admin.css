@@ -102,13 +102,17 @@ details.iconselect-field > summary + .radio > .form-check label:hover {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 100%;
+    width: calc(100% - 3rem);
     height: 100%;
     padding: .8rem 1rem;
     background-clip: content-box !important;
 
     --tc: var(--template-bg-dark-30);
     --tw: transparent;
+}
+
+#fieldset-blocks [data-base-name="rows"] .n-blocks details > summary + .radio > .form-check label::before {
+    width: 100%;
 }
 
 
@@ -161,6 +165,19 @@ details.iconselect-field > summary + .radio > .form-check label:hover {
     );
 }
 
+#fieldset-blocks [data-base-name="rows"] .n-blocks details:has([value="25-25-25-25"]:checked) > summary::before,
+#fieldset-blocks [data-base-name="rows"] .n-blocks details [value="25-25-25-25"] + label::before {
+    background: linear-gradient(
+        to right,
+        var(--tc) 0%, var(--tc) 23%,
+        var(--tw) 23%, var(--tw) 27%,
+        var(--tc) 27%, var(--tc) 48%,
+        var(--tw) 48%, var(--tw) 52%,
+        var(--tc) 52%, var(--tc) 73%,
+        var(--tw) 73%, var(--tw) 77%,
+        var(--tc) 77%, var(--tc) 100%
+    );
+}
 
 
 #fieldset-blocks .subform-repeatable-wrapper.subform-layout {
@@ -184,57 +201,60 @@ details.iconselect-field > summary + .radio > .form-check label:hover {
     flex: 0;
 }
 
-@container grid-wrap (width > 90ch) {
+@container grid-wrap (width > 120ch) {
 
-   [data-base-name="rows"] {
-        grid-template-columns: repeat(6, 1fr);
+    [data-base-name="rows"] {
+        grid-template-columns: repeat(12, 1fr);
     }
 
 
-   [data-base-name="rows"] .control-group.btn-toolbar,
-   [data-base-name="rows"] .control-group.n-blocks {
-        grid-column: auto / span 6;
+    [data-base-name="rows"] .control-group.btn-toolbar,
+    [data-base-name="rows"] .control-group.n-blocks {
+        grid-column: auto / span 12;
     }
 
     [data-base-name="rows"] .control-group.block-expand {
-        grid-column: span 6;
+        grid-column: span 12;
 
         margin: 0 0 1rem;
         position: relative;
     }
 
 
-   [data-base-name="rows"] .control-group.block-cell {
+    [data-base-name="rows"] .control-group.block-cell {
+        grid-column: auto / span 12;
+
+        margin: 0 0 1rem;
+        position: relative;
+    }
+
+    [data-base-name="rows"]:has([value="50-50"]:checked) .control-group.block-cell {
         grid-column: auto / span 6;
-
-        margin: 0 0 1rem;
-        position: relative;
     }
 
-   [data-base-name="rows"]:has([value="50-50"]:checked) .control-group.block-cell {
+    [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(4) {
+        grid-column: auto / span 4;
+    }
+
+    [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(3) {
+        grid-column: auto / span 8;
+    }
+
+    [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(4) {
+        grid-column: auto / span 8;
+    }
+
+    [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(3) {
+        grid-column: auto / span 4;
+    }
+
+    [data-base-name="rows"]:has([value="33-33-33"]:checked) .control-group.block-cell {
+        grid-column: auto / span 4;
+    }
+
+    [data-base-name="rows"]:has([value="25-25-25-25"]:checked) .control-group.block-cell {
         grid-column: auto / span 3;
     }
-
-   [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(3) {
-        grid-column: auto / span 2;
-    }
-
-   [data-base-name="rows"]:has([value="33-66"]:checked) .control-group.block-cell:nth-last-child(2) {
-        grid-column: auto / span 4;
-    }
-
-   [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(3) {
-        grid-column: auto / span 4;
-    }
-
-   [data-base-name="rows"]:has([value="66-33"]:checked) .control-group.block-cell:nth-last-child(2) {
-        grid-column: auto / span 2;
-    }
-
-   [data-base-name="rows"]:has([value="33-33-33"]:checked) .control-group.block-cell {
-        grid-column: auto / span 2;
-    }
-
 }
 
 /*
