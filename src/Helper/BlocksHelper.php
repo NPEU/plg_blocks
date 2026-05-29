@@ -244,9 +244,10 @@ class BlocksHelper
      * @param string $iconId (filename without .svg)
      * @param array $svgAttrs Associative HTML attributes for the outer <svg> (class, width, height, role, aria-hidden, etc)
      * @param string|null $prefix
+     * @param string|null $text
      * @return string
      */
-    public static function renderUse(string $iconId, array $svgAttrs = [], ?string $prefix = null): string
+    public static function renderUse(string $iconId, array $svgAttrs = [], ?string $prefix = null, ?string $text = null): string
     {
         $prefix = $prefix ?? self::getIdPrefix();
         $safeId = $prefix . preg_replace('/[^a-z0-9\-_]/i', '-', $iconId);
@@ -269,7 +270,8 @@ class BlocksHelper
         // Use href (modern) and also xlink:href for legacy browsers if you want (optional).
         $use = '<use href="#' . htmlspecialchars($safeId, ENT_QUOTES, 'UTF-8') . '"></use>';
 
-        $svg = '<svg ' . implode(' ', $attrStrings) . '>' . $use . '</svg>';
+
+        $svg = '<svg ' . implode(' ', $attrStrings) . '>' . $use . $text . '</svg>';
         return $svg;
     }
 

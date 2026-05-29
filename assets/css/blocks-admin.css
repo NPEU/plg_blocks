@@ -262,3 +262,13 @@ details.iconselect-field > summary + .radio > .form-check label:hover {
     margin-bottom: 0.5em;
 }
 */
+
+.block_preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.block_preview img[height="80"]{
+    height: 80px;
+    width: auto;
+}

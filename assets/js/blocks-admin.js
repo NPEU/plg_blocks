@@ -105,23 +105,102 @@ async function getData(url) {
             });
         });
 
+        var block_preview_classname = 'block_preview';
+
         subform.querySelectorAll('.block-cell').forEach(function (block_cell) {
 
-            //console.log(select);
+            const  modal_type_select = block_cell.querySelector('.form-select');
+            const  modal_control     = modal_type_select.nextElementSibling;
+            const  modal_input       = modal_control.querySelector('input.form-control');
+            const  modal_select      = block_cell.querySelector('[data-button-action="select"]');
+            const  modal_create      = block_cell.querySelector('[data-button-action="create"]');
+            const  modal_edit        = block_cell.querySelector('[data-button-action="edit"]');
+            const  modal_clear       = block_cell.querySelector('[data-button-action="clear"]');
+            const  modal_hidden      = block_cell.querySelector('input[type="hidden"]');
+            let    preview_container = block_cell.lastElementChild;
 
-            var modal_type_select = block_cell.querySelector('.form-select');
-            var modal_control     = modal_type_select.nextElementSibling;
-            var modal_input       = modal_control.querySelector('input.form-control');
-            var modal_select      = block_cell.querySelector('[data-button-action="select"]');
-            var modal_create      = block_cell.querySelector('[data-button-action="create"]');
-            var modal_edit        = block_cell.querySelector('[data-button-action="edit"]');
-            var modal_clear       = block_cell.querySelector('[data-button-action="clear"]');
-            var modal_hidden      = block_cell.querySelector('input[type="hidden"]');
+
+            // Add the classes input to block cell:
+            const originalLabelWrap = block_cell.querySelector('.control-label:first-child');
+            //if (!originalLabelWrap) return;
+
+            const originalLabel = originalLabelWrap.querySelector('label');
+            //if (!originalLabel) return;
+
+            // Find the matching input for the cloned "classes" field
+            const classesInputId = originalLabel.id.replace(/_id-lbl$/, '_classes');
+            const classesInput = document.getElementById(classesInputId);
+            classesInput.type = 'text';
+            classesInput.className = 'form-control';
+            //if (!classesInput) return;
+
+            // Clone the label wrapper
+            const clonedLabelWrap = originalLabelWrap.cloneNode(true);
+            const clonedLabel = clonedLabelWrap.querySelector('label');
+
+            // Update cloned label attributes
+            clonedLabel.id = classesInput.id + '-lbl';
+            clonedLabel.htmlFor = classesInput.id;
+
+            // Optional: adjust visible text
+            clonedLabel.textContent = originalLabel.textContent.replace(/\bcontent\b/i, 'classes');
+
+            // Insert cloned label before the original one
+            block_cell.insertBefore(clonedLabelWrap, originalLabelWrap);
+
+            // Create a controls wrapper and move the input into it
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+            controls.appendChild(classesInput);
+
+            // Insert controls before the original label
+            block_cell.insertBefore(controls, originalLabelWrap);
 
 
-            var preview_container = document.createElement("div");
-            preview_container.className = 'block_preview';
-            block_cell.append(preview_container);
+
+
+
+
+
+
+
+            //var first_control_label = block_cell.querySelector('.control-label:first-child');
+            //var first_label = first_control_label.querySelector('label');
+            //var hidden_input = document.getElementById(first_label.id.replace(/id-lbl$/, 'classes'));
+            //hidden_input.type = 'text';
+            //console.log(hidden_input);
+
+
+
+
+
+            // jform_params__rows__rows0__block_1_classes
+            // jform_params__rows__rows0__block_1_id
+            //console.log(modal_input.id);
+            //var n = block_cell.className.replace(/[^0-9]*/g, '');
+
+            //var class_input_id = modal_input.id.replace(/_id$/, '_classes');
+            //var class_input = document.getElementById(class_input_id);
+            //var block_content_label = document.getElementById(modal_input.id + '-lbl');
+
+            //var class_input_chunk = block_content_label.parentElement.cloneNode(true);
+            //class_input_chunk.id = class_input_chunk.id.replace('_id-lbl', '_classes-lbl');
+            //class_input_chunk.setAttribute('for', 'testing');
+            //console.log(class_input_chunk);
+
+
+
+
+            //class_input.type = 'text';
+
+            //block_cell.prepend(class_input_chunk);
+
+            if (preview_container && !preview_container.classList.contains(block_preview_classname)) {
+                preview_container = document.createElement("div");
+
+                preview_container.className = block_preview_classname;
+                block_cell.append(preview_container);
+            }
 
             modal_input.dataset.placeholderOrginial = modal_input.placeholder;
 

@@ -18,6 +18,8 @@ error_reporting(E_ALL);
 */
 use Joomla\CMS\Event\Result\ResultAwareInterface;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Plugin\CMSPlugin;
@@ -146,7 +148,8 @@ class Blocks extends CMSPlugin implements SubscriberInterface
             'onBeforeRender'       => 'onBeforeRender',
             'onAfterRender'        => 'onAfterRender',
             'onAjaxGetModuleById'  => 'onAjaxGetModuleById',
-            'onContentPrepareData' => 'onContentPrepareData'
+            'onContentPrepareForm' => 'onContentPrepareForm'
+            /*'onContentPrepareData' => 'onContentPrepareData'*/
         ] : [];
     }
 
@@ -372,7 +375,11 @@ class Blocks extends CMSPlugin implements SubscriberInterface
     public function onAfterDispatch(Event $event): void
     {
         $app = Factory::getApplication();
-
+        #$app->enqueueMessage('This is a test message', 'message');
+        #$app->enqueueMessage('This is a test message', 'notice');
+        #$app->enqueueMessage('This is a test message', 'warning');
+        #$app->enqueueMessage('This is a test message', 'success');
+        #$app->enqueueMessage('This is a test message', 'error');
         if ($app->isClient('administrator')) {
             return; // Don't run in admin
         }
@@ -380,7 +387,42 @@ class Blocks extends CMSPlugin implements SubscriberInterface
         $dir = str_replace(JPATH_ROOT, '', dirname(dirname(__DIR__)));
         $document = Factory::getDocument();
 
-        $document->addStyleSheet($dir . '/assets/css/blocks.css');
+        //$document->addStyleSheet($dir . '/assets/css/blocks.css');
+    }
+
+    /**
+     * Prepare form and add my field.
+     *
+     * @param   Form  $form  The form to be altered.
+     * @param   mixed  $data  The associated data for the form.
+     *
+     * @return  boolean
+     *
+     * @since   <your version>
+     */
+    public function onContentPrepareForm(Event $event): void
+    {
+        [$form, $data] = array_values($event->getArguments());
+
+        if (!$form instanceof \Joomla\CMS\Form\Form) {
+            return;
+        }
+
+        $app    = Factory::getApplication();
+        $option = $app->input->get('option');
+        FormHelper::addFormPath(dirname(dirname(__DIR__)) . '/forms');
+
+        switch($option)
+        {
+            case 'com_menus' :
+                if ($app->isClient('administrator') && isset($data->type) && $data->type == 'component') {
+                    $form->loadFile('menu_item', false);
+                }
+
+                return;
+        }
+
+        return;
     }
 
     /**
@@ -390,7 +432,7 @@ class Blocks extends CMSPlugin implements SubscriberInterface
      *
      * @return  boolean
      */
-    public function onContentPrepareData(Event $event): void
+    /*public function onContentPrepareData(Event $event): void
     {
         [$context, $data] = array_values($event->getArguments());
 
@@ -408,5 +450,5 @@ class Blocks extends CMSPlugin implements SubscriberInterface
             $data->assignment = '1';
         }
 
-    }
+    }*/
 }

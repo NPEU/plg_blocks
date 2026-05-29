@@ -1,0 +1,29 @@
+/*
+    Block CSS
+*/
+
+
+
+#fieldset-blocks [data-base-name="rows"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2em;
+
+}
+
+#fieldset-blocks [data-base-name="rows"] .control-group.n-blocks {
+    flex-basis: 100%;
+}
+
+
+#fieldset-blocks [data-base-name="rows"] .control-group.block-cell {
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    display: flex;
+    position: relative;
+    flex: 1 1 30%;
+}
+/*
+
+background: linear-gradient(to right, #eeeeee 0%,#eeeeee 47%,#ffffff 47%,#ffffff 53%,#eeeeee 53%,#eeeeee 100%);
+*/

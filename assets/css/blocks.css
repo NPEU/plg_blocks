@@ -29,41 +29,92 @@
         grid-template-columns: repeat(12, 1fr);
     }
 
-    .com-blocks > .com-blocks__row--100 > .com-blocks__block {
-        grid-column: auto / span 12;
+    /* Full-width */
+    .com-blocks > .com-blocks__row--100 > .com-blocks__block,
+    .com-blocks .com-blocks__block--span-all {
+        grid-column: 1 / 13;
+    }
+    /* ---------------------*/
+
+
+    /* Halves */
+    .com-blocks > .com-blocks__row--50-50 > .com-blocks__block-1 {
+        grid-column: 1 / 7;
     }
 
-    .com-blocks > .com-blocks__row--50-50 > .com-blocks__block {
-        grid-column: auto / span 6;
+    .com-blocks > .com-blocks__row--50-50 > .com-blocks__block-2 {
+        grid-column: 7 / 13;
     }
+    /* ---------------------*/
 
-   .com-blocks > .ccom-blocks__row--33-66 > .com-blocks__block-1 {
-        grid-column: auto / span 4;
+
+    /* One third / two thirds */
+   .com-blocks > .com-blocks__row--33-66 > .com-blocks__block-1 {
+        grid-column: 1 / 5;
     }
 
     .com-blocks > .com-blocks__row--33-66 > .com-blocks__block-2 {
-        grid-column: auto / span 8;
+        grid-column: 5 / 13;
     }
+    /* ---------------------*/
 
+
+    /* Two thirds / one third */
     .com-blocks > .com-blocks__row--66-33 > .com-blocks__block-1 {
-        grid-column: auto / span 8;
+        grid-column: 1 / 9;
     }
 
     .com-blocks > .com-blocks__row--66-33 > .com-blocks__block-2 {
-        grid-column: auto / span 4;
+        grid-column: 9 / 13
+    }
+    /* ---------------------*/
+
+
+    /* Thirds */
+    .com-blocks > .com-blocks__row--33-33-33 > .com-blocks__block-1 {
+        grid-column: 1 / 5;
     }
 
-    .com-blocks > .com-blocks__row--33-33-33 > .com-blocks__block {
-        grid-column: auto / span 4;
+    .com-blocks > .com-blocks__row--33-33-33 > .com-blocks__block-2 {
+        grid-column: 5 / 9;
     }
 
-    .com-blocks > .com-blocks__row--25-25-25-25 > .com-blocks__block {
-        grid-column: auto / span 3;
+    .com-blocks > .com-blocks__row--33-33-33 > .com-blocks__block-3 {
+        grid-column: 9 / 13;
+    }
+    /* ---------------------*/
+
+
+    /* Quarters */
+    .com-blocks > .com-blocks__row--25-25-25-25 > .com-blocks__block-1 {
+        grid-column: 1 / 4;
     }
 
+    .com-blocks > .com-blocks__row--25-25-25-25 > .com-blocks__block-2 {
+        grid-column: 4 / 7;
+    }
+
+    .com-blocks > .com-blocks__row--25-25-25-25 > .com-blocks__block-3 {
+        grid-column: 7 / 10;
+    }
+
+    .com-blocks > .com-blocks__row--25-25-25-25 > .com-blocks__block-4 {
+        grid-column: 10 / 13;
+    }
+    /* ---------------------*/
 }
 
 
 img[height="80"] {
     max-height: calc(80 / 16 * 1rem);
+}
+
+
+/*
+SHAME
+*/
+
+/* For default theme logo strip footer. Won't be needed on real template: */
+.mod-custom.custom {
+    width: 100%;
 }

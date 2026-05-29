@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fields name="params">
+        <fieldset name="page-options">
+            <field
+                name="hero_image"
+                type="subform"
+                label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_LABEL"
+                description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_DESC"
+                min="1"
+                max="5"
+            >
+                <form>
+                    <field
+                        name="enabled"
+                        type="radio"
+                        label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_ENABLED_LABEL"
+                        description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_ENABLED_DESC"
+                        default="1"
+                        class="btn-group btn-group-yesno"
+                    >
+                        <option value="1">JYES</option>
+                        <option value="0">JNO</option>
+                    </field>
+                    <field
+                        name="image"
+                        type="media"
+                        label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_IMAGE_LABEL"
+                        description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_IMAGE_DESC"
+                        directory="images"
+                    />
+                    <field
+                        name="alt"
+                        type="text"
+                        label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_ALT_LABEL"
+                        description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_ALT_DESC"
+                    />
+                    <field
+                        name="credit"
+                        type="text"
+                        label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_CREDIT_LABEL"
+                        description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_CREDIT_DESC"
+                    />
+                </form>
+            </field>
+        </fieldset>
+    </fields>
+</form>

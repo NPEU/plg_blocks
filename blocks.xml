@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.0.0</version>
+    <version>4.0.0</version>
     <!-- The description is optional and defaults to the name -->
     <description>PLG_SYSTEM_BLOCKS_XML_DESCRIPTION</description>
 
@@ -22,6 +22,7 @@
     <namespace path="src">NPEU\Plugin\System\Blocks</namespace>
     <files>
         <folder>assets</folder>
+        <folder>forms</folder>
         <folder>services</folder>
         <folder plugin="blocks">src</folder>
         <folder>language</folder>
