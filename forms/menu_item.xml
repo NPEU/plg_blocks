@@ -41,6 +41,12 @@
                         label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_CREDIT_LABEL"
                         description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_CREDIT_DESC"
                     />
+                    <field
+                        name="hero_text"
+                        type="text"
+                        label="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_TEXT_LABEL"
+                        description="PLG_SYSTEM_BLOCKS_MENU_ITEM_HERO_TEXT_DESC"
+                    />
                 </form>
             </field>
         </fieldset>
